@@ -1,0 +1,38 @@
+{
+ "properties": {
+  "displayName": "Allowed-resource-types-azdevops",
+  "policyType": "Custom",
+  "mode": "Indexed",
+  "description": "This policy enables you to specify the resource types that your organization can deploy.",
+  "metadata": {
+   "createdBy": "00ce3895-85a6-45ea-ab81-bb3b5283d028",
+   "createdOn": "2023-01-30T14:30:06.6696379Z",
+   "updatedBy": "00ce3895-85a6-45ea-ab81-bb3b5283d028",
+   "updatedOn": "2023-02-07T14:06:32.391518Z"
+  },
+  "parameters": {
+   "listOfResourceTypesAllowed": {
+    "type": "Array",
+    "metadata": {
+     "description": "The list of resource types that can be deployed.",
+     "displayName": "Allowed resource types",
+     "strongType": "resourceTypes"
+    }
+   }
+  },
+  "policyRule": {
+   "if": {
+    "not": {
+     "field": "type",
+     "in": "[parameters('listOfResourceTypesAllowed')]"
+    }
+   },
+   "then": {
+    "effect": "audit"
+   }
+  }
+ },
+ "id": "/subscriptions/88510caf-6771-4630-ac6e-4c192e20c8ba/providers/Microsoft.Authorization/policyDefinitions/Allowed-resource-types-azdevops",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "Allowed-resource-types-azdevops"
+}
