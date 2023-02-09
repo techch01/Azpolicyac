@@ -1,0 +1,48 @@
+{
+ "properties": {
+  "displayName": "Allowed-virtual-machine-size-SKUs-azdevops",
+  "policyType": "Custom",
+  "mode": "Indexed",
+  "description": "This policy enables you to specify a set of virtual machine size SKUs that your organization can deploy.",
+  "metadata": {
+   "version": "1.0.1",
+   "category": "Compute",
+   "createdBy": "00ce3895-85a6-45ea-ab81-bb3b5283d028",
+   "createdOn": "2023-02-06T14:53:51.705706Z",
+   "updatedBy": "00ce3895-85a6-45ea-ab81-bb3b5283d028",
+   "updatedOn": "2023-02-07T14:59:05.1305712Z"
+  },
+  "parameters": {
+   "listOfAllowedSKUs": {
+    "type": "Array",
+    "metadata": {
+     "description": "The list of size SKUs that can be specified for virtual machines.",
+     "displayName": "Allowed Size SKUs",
+     "strongType": "VMSKUs"
+    }
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "equals": "Microsoft.Compute/virtualMachines"
+     },
+     {
+      "not": {
+       "field": "Microsoft.Compute/virtualMachines/sku.name",
+       "in": "[parameters('listOfAllowedSKUs')]"
+      }
+     }
+    ]
+   },
+   "then": {
+    "effect": "audit"
+   }
+  }
+ },
+ "id": "/subscriptions/2676ad80-8410-409d-9ffa-d3a8f5955e1a/providers/Microsoft.Authorization/policyDefinitions/Allowed-virtual-machine-size-SKUs-azdevops",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "Allowed-virtual-machine-size-SKUs-azdevops"
+}
